@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D'Rumtreiba Musi – Gmiatlich · Griabig · Boarisch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #C8941A;
+      --gold-light: #E8B84B;
+      --green-dark: #2C3D1F;
+      --green-mid: #3D5426;
+      --green-light: #4E6B30;
+      --cream: #F5EDD8;
+      --cream-dark: #E8D9B8;
+      --black: #0D0D0D;
+      --text-dark: #1A1A1A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+      transition: background 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(13,13,13,0.97);
+      border-bottom: 1px solid rgba(200,148,26,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.8;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--gold-light);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 50% 60%, rgba(44,61,31,0.55) 0%, transparent 70%),
+        linear-gradient(160deg, #0D0D0D 0%, #111 50%, #0a0d08 100%);
+      overflow: hidden;
+    }
+
+    /* Decorative ring */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,148,26,0.12);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,148,26,0.06);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 4s ease-in-out infinite 1s;
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+    }
+
+    .hero-logo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 60px rgba(200,148,26,0.25), 0 0 120px rgba(44,61,31,0.4);
+      animation: fadeInDown 1s ease both;
+    }
+
+    .hero-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 900;
+      line-height: 0.95;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease 0.4s both;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #a06e10 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: var(--green-light);
+      margin-top: 0.3rem;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease 0.5s both;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-desc {
+      max-width: 520px;
+      margin: 2rem auto 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0.7;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease 0.8s both;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--gold);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 4px 30px rgba(200,148,26,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(200,148,26,0.5);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border: 1px solid rgba(200,148,26,0.5);
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-left: 1rem;
+      transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 0 auto 3rem;
+      max-width: 300px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .divider::after {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .divider span {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ÜBER UNS ── */
+    #ueber {
+      background: linear-gradient(to bottom, var(--black), #0f1409, var(--black));
+    }
+
+    .ueber-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .ueber-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      opacity: 0.75;
+      margin-bottom: 1.2rem;
+    }
+
+    .ueber-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      border-left: 2px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-top: 0.3rem;
+    }
+
+    /* ── BILDER GALERIE ── */
+    #galerie {
+      background: #080808;
+      padding: 6rem 2rem;
+    }
+
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .galerie-item {
+      aspect-ratio: 4/3;
+      background: var(--green-dark);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      filter: brightness(0.85) saturate(0.9);
+    }
+
+    .galerie-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) saturate(1.1);
+    }
+
+    /* Video Container Styling */
+    .video-container {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-placeholder-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      padding: 1rem;
+      text-align: center;
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      pointer-events: none;
+      font-weight: 400;
+    }
+
+    /* ── REPERTOIRE / MUSIK ── */
+    #musik {
+      background: linear-gradient(to bottom, var(--black), #0c1108);
+    }
+
+    .musik-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .musik-card {
+      border: 1px solid rgba(200,148,26,0.15);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+      background: rgba(44,61,31,0.08);
+    }
+
+    .musik-card:hover {
+      border-color: rgba(200,148,26,0.4);
+      transform: translateY(-4px);
+      background: rgba(44,61,31,0.18);
+    }
+
+    .musik-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .musik-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .musik-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      opacity: 0.65;
+    }
+
+    /* ── AUFTRITTE ── */
+    #auftritte {
+      background: #070707;
+    }
+
+    .auftritte-list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .auftritt-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s;
+    }
+
+    .auftritt-item:first-child {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .auftritt-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .auftritt-date span {
+      display: block;
+      font-size: 0.75rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: var(--cream);
+      opacity: 0.5;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .auftritt-info h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .auftritt-info p {
+      font-size: 0.85rem;
+      opacity: 0.55;
+    }
+
+    .auftritt-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(200,148,26,0.3);
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .auftritte-note {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      opacity: 0.5;
+      font-style: italic;
+    }
+
+    /* ── KONTAKT ── */
+    #kontakt {
+      background: linear-gradient(to bottom, #0c1108, var(--green-dark));
+      text-align: center;
+    }
+
+    .kontakt-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .kontakt-inner p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      opacity: 0.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .kontakt-mail {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,148,26,0.3);
+      padding-bottom: 0.3rem;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .kontakt-mail:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(200,148,26,0.1);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      opacity: 0.35;
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.6;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.75rem; }
+
+      .ueber-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .musik-grid { grid-template-columns: 1fr; }
+      .galerie-grid { grid-template-columns: 1fr 1fr; }
+
+      .auftritt-item {
+        grid-template-columns: 90px 1fr;
+        gap: 1rem;
+      }
+      .auftritt-tag { display: none; }
+
+      .btn-outline { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
+
+      section { padding: 4rem 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .galerie-grid { grid-template-columns: 1fr; }
+      .ueber-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">D'Rumtreiba Musi</a>
+    <ul class="nav-links">
+      <li><a href="#ueber">Über uns</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#musik">Musik</a></li>
+      <li><a href="#auftritte">Auftritte</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <img src="Logo_Drumtreiba-Musi__1_.png" alt="D'Rumtreiba Musi Logo" class="hero-logo" />
+    <span class="hero-tagline">Gmiatlich · Griabig · Boarisch</span>
+    <h1 class="hero-title">D'Rumtreiba<br>Musi</h1>
+    <p class="hero-subtitle">Est. 2022</p>
+    <p class="hero-desc">
+      Echte bayerische Blasmusik mit Herz – ob Volksfest, Hochzeit oder Stadtfest.
+      Mir spielen für eich!
+    </p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn-primary">Auftritt anfragen</a>
+      <a href="#ueber" class="btn-outline">Mehr erfahren</a>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="ueber">
+    <div class="section-inner">
+      <div class="ueber-grid">
+        <div class="ueber-text reveal">
+          <span class="section-label">Über uns</span>
+          <h2 class="section-title">A Kapell aus dem Herzen Bayerns</h2>
+          <div class="divider"><span>✦</span></div>
+          <p>
+            D'Rumtreiba Musi wurde 2022 gegründet und steht für echte, bodenständige
+            Blasmusik aus der Region. Mit einem bunten Mix aus Polkas, Märschen,
+            Walzern und modernen Stücken bringen wir Stimmung auf jede Veranstaltung.
+          </p>
+          <p>
+            Egal ob kleines Dorffest oder großes Volksfest – bei uns kommt a jeder
+            auf seine Kosten. Gmiatlich, griabig und durch und durch boarisch.
+          </p>
+          <div class="ueber-stats">
+            <div class="stat">
+              <div class="stat-number">2022</div>
+              <div class="stat-label">Gegründet</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">∞</div>
+              <div class="stat-label">Stimmung</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay: 0.2s;">
+          <!-- Hauptbild der Kapelle – jetzt durch das Gruppenfoto ersetzt -->
+          <div style="aspect-ratio:4/3; background: var(--green-dark); overflow:hidden; border: 1px solid rgba(200,148,26,0.25);">
+            <img src="IMG_1588.jpg" alt="D'Rumtreiba Musi Kapelle" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE (Bilder und Video) -->
+  <section id="galerie">
+    <div class="section-inner">
+      <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+        <span class="section-label">Eindrücke</span>
+        <h2 class="section-title">Galerie</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="galerie-grid">
+        <!-- Foto 1: IMG_1517.jpg -->
+        <div class="galerie-item reveal">
+          <img src="IMG_1517.jpg" alt="Auftritt D'Rumtreiba Musi 1" />
+        </div>
+        <!-- Foto 2: IMG_1577.jpg -->
+        <div class="galerie-item reveal" style="transition-delay:0.1s;">
+          <img src="IMG_1577.jpg" alt="Auftritt D'Rumtreiba Musi 2" />
+        </div>
+        <!-- Foto 3: IMG_1547.jpg (Hinweis: ohne Endung, aber Datei wird so verwendet) -->
+        <div class="galerie-item reveal" style="transition-delay:0.2s;">
+          <img src="IMG_1547.jpg" alt="Auftritt D'Rumtreiba Musi 3" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'galerie-placeholder\' style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, var(--green-dark), #1a2410);color:var(--gold);font-size:0.75rem;text-transform:uppercase;\'><svg width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><br/>IMG_1547</div>';" />
+        </div>
+        <!-- Foto 4: IMG_1588.jpg (bereits als Hauptfoto verwendet, hier nochmal für Galerie) -->
+        <div class="galerie-item reveal" style="transition-delay:0.3s;">
+          <img src="IMG_1588.jpg" alt="Auftritt D'Rumtreiba Musi 4" />
+        </div>
+        <!-- Foto 5: IMG_1686.jpg -->
+        <div class="galerie-item reveal" style="transition-delay:0.4s;">
+          <img src="IMG_1686.jpg" alt="Auftritt D'Rumtreiba Musi 5" />
+        </div>
+        <!-- Video Platzhalter: Statt Foto 6 ein Video-Container mit Platzhalter-Hinweis -->
+        <div class="galerie-item reveal" style="transition-delay:0.5s;">
+          <div class="video-container">
+            <video poster="IMG_9150.jpg" controls preload="metadata" style="width:100%; height:100%; object-fit:cover;">
+              <source src="IMG_9150.mp4" type="video/mp4">
+              Ihr Browser unterstützt kein HTML5-Video. Hier könnte ein Livemitschnitt der Rumtreiba Musi stehen.
+            </video>
+            <div class="video-placeholder-overlay">
+              🎬 Live-Moment – Video (IMG_9150)
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:1.5rem; font-size:0.8rem; opacity:0.45; font-style:italic;">
+        📸 Impressionen vergangener Feste – Video bitte als IMG_9150.mp4 ablegen (Poster: IMG_9150.jpg)
+      </p>
+    </div>
+  </section>
+
+  <!-- MUSIK & REPERTOIRE -->
+  <section id="musik">
+    <div class="section-inner">
+      <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+        <span class="section-label">Was wir spielen</span>
+        <h2 class="section-title">Unser Repertoire</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="musik-grid">
+        <div class="musik-card reveal">
+          <div class="musik-card-icon">🎺</div>
+          <h3>Polkas & Märsche</h3>
+          <p>Zünftige Blasmusik, die ins Blut geht – von klassischen Polkas bis zu schwungvollen Märschen.</p>
+        </div>
+        <div class="musik-card reveal" style="transition-delay:0.15s;">
+          <div class="musik-card-icon">🪗</div>
+          <h3>Walzer & Landler</h3>
+          <p>Romantische Melodien und beschwingte Landler für Tanzfreudige und Zuhörer gleichermaßen.</p>
+        </div>
+        <div class="musik-card reveal" style="transition-delay:0.3s;">
+          <div class="musik-card-icon">🎶</div>
+          <h3>Volksmusik & Modernes</h3>
+          <p>Echte bayerische Volksmusik gepaart mit modernen Stücken – für jede Generation was dabei.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUFTRITTE -->
+  <section id="auftritte">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-label">Termine</span>
+        <h2 class="section-title">Kommende Auftritte</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="auftritte-list">
+        <!-- Auftritte hier eintragen / aktualisieren -->
+        <div class="auftritt-item reveal">
+          <div class="auftritt-date">– –<span>Datum</span></div>
+          <div class="auftritt-info">
+            <h4>Auftritt folgt</h4>
+            <p>Ort wird bekannt gegeben</p>
+          </div>
+          <div class="auftritt-tag">Angekündigt</div>
+        </div>
+      </div>
+      <p class="auftritte-note reveal">
+        Aktuelle Termine und Neuigkeiten auf Anfrage oder per Mail.
+      </p>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <div class="section-inner">
+      <div class="kontakt-inner reveal">
+        <span class="section-label">Kontakt</span>
+        <h2 class="section-title">Auftritt anfragen</h2>
+        <div class="divider"><span>✦</span></div>
+        <p>
+          Ihr sucht eine zünftige Blaskapelle für euer Fest, eure Hochzeit oder euren
+          Vereinsabend? Schreibt uns einfach – wir freuen uns auf eure Anfrage!
+        </p>
+        <a href="mailto:info@d-rumtreiba-musi.de" class="kontakt-mail">
+          info@d-rumtreiba-musi.de
+        </a>
+        <div style="margin-top: 3rem;">
+          <a href="mailto:info@d-rumtreiba-musi.de" class="btn-primary">Jetzt schreiben</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 D'Rumtreiba Musi · <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a> · Gmiatlich · Griabig · Boarisch</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Kleine Fallback-Hilfe für das Video: Damit das Poster-Bild angezeigt wird (falls jpg da)
+    // und das Video geladen werden kann, ohne dass der Benutzer irritiert ist.
+    // Die video controls sind bereits vorhanden.
+  </script>
+
+</body>
+</html>
