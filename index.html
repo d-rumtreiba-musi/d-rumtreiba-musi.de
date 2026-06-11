@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>D'Rumtreiba Musi – Gmiatlich · Griabig · Boarisch</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
@@ -41,7 +41,7 @@
       opacity: 0.4;
     }
 
-    /* ── NAVIGATION ── */
+    /* ── NAVIGATION (Desktop) ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -338,7 +338,6 @@
       margin-top: 0.3rem;
     }
 
-    /* Video Container für "Über uns" */
     .ueber-video-container {
       aspect-ratio: 16/9;
       background: #000;
@@ -385,37 +384,6 @@
     .galerie-item:hover img {
       transform: scale(1.05);
       filter: brightness(1) saturate(1.1);
-    }
-
-    /* Video Container Styling für Galerie (falls benötigt) */
-    .video-container {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .video-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .video-placeholder-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      padding: 1rem;
-      text-align: center;
-      color: var(--gold);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      pointer-events: none;
-      font-weight: 400;
     }
 
     /* ── REPERTOIRE / MUSIK ── */
@@ -476,10 +444,10 @@
 
     .auftritt-item {
       display: grid;
-      grid-template-columns: 120px 1fr auto;
+      grid-template-columns: 140px 1fr auto;
       align-items: center;
       gap: 2rem;
-      padding: 1.8rem 0;
+      padding: 1.5rem 0;
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background 0.2s;
     }
@@ -490,27 +458,29 @@
 
     .auftritt-date {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: var(--gold);
       font-weight: 700;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .auftritt-date span {
-      display: block;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-family: 'Lato', sans-serif;
       font-weight: 300;
       color: var(--cream);
       opacity: 0.5;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-top: 0.2rem;
     }
 
     .auftritt-info h4 {
       font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
       letter-spacing: 0.05em;
     }
 
@@ -523,7 +493,7 @@
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.4rem 0.9rem;
+      padding: 0.3rem 0.8rem;
       border: 1px solid rgba(200,148,26,0.3);
       color: var(--gold);
       white-space: nowrap;
@@ -570,7 +540,7 @@
       border-color: var(--gold-light);
     }
 
-    /* ── RECHTLICHE SEITEN (Impressum / Datenschutz) ── */
+    /* ── RECHTLICHE SEITEN ── */
     .legal-section {
       max-width: 1000px;
       margin: 0 auto;
@@ -615,20 +585,20 @@
     footer {
       background: var(--black);
       border-top: 1px solid rgba(200,148,26,0.1);
-      padding: 2.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
     }
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.8rem;
       margin-bottom: 1rem;
       flex-wrap: wrap;
     }
     .footer-links a {
       color: var(--gold);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       opacity: 0.7;
       transition: opacity 0.2s;
     }
@@ -637,14 +607,9 @@
       text-decoration: underline;
     }
     footer p {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       opacity: 0.35;
       letter-spacing: 0.08em;
-    }
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-      opacity: 0.6;
     }
 
     /* ── ANIMATIONS ── */
@@ -652,54 +617,138 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .reveal {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ── RESPONSIVE ── */
+    /* ==============================================
+       HANDY-OPTIMIERUNGEN (Navigation & Auftritte)
+       ============================================== */
     @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      .nav-links a { font-size: 0.75rem; }
-
-      .ueber-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .musik-grid { grid-template-columns: 1fr; }
-      .galerie-grid { grid-template-columns: 1fr 1fr; }
-
-      .auftritt-item {
-        grid-template-columns: 90px 1fr;
-        gap: 1rem;
+      nav {
+        padding: 0.7rem 1rem;
       }
-      .auftritt-tag { display: none; }
+      .nav-logo {
+        font-size: 0.9rem;
+      }
+      .nav-links {
+        gap: 0.9rem;
+      }
+      .nav-links a {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+      }
+      .hero-logo {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1.5rem;
+      }
+      .hero {
+        padding: 5rem 1.5rem 3rem;
+      }
+      .hero-cta .btn-outline {
+        margin-left: 0;
+        margin-top: 0.8rem;
+        display: block;
+        text-align: center;
+      }
+      .ueber-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .musik-grid {
+        grid-template-columns: 1fr;
+      }
+      .galerie-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+      }
+      section {
+        padding: 3.5rem 1.2rem;
+      }
+      .auftritt-item {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+        padding: 1.2rem 0;
+      }
+      .auftritt-date {
+        font-size: 1.2rem;
+        gap: 0.3rem;
+      }
+      .auftritt-date span {
+        font-size: 0.65rem;
+      }
+      .auftritt-tag {
+        display: inline-block;
+        width: fit-content;
+        font-size: 0.6rem;
+        padding: 0.2rem 0.7rem;
+      }
+      .auftritt-info h4 {
+        font-size: 0.95rem;
+      }
+      .auftritt-info p {
+        font-size: 0.8rem;
+      }
+    }
 
-      .btn-outline { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
-
-      section { padding: 4rem 1.5rem; }
-      .footer-links { gap: 1rem; }
+    @media (max-width: 550px) {
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.6rem 0.8rem;
+      }
+      .nav-links {
+        gap: 0.7rem;
+      }
+      .nav-links a {
+        font-size: 0.6rem;
+        letter-spacing: 0.05em;
+      }
+      .nav-logo {
+        font-size: 0.85rem;
+      }
     }
 
     @media (max-width: 480px) {
-      .galerie-grid { grid-template-columns: 1fr; }
-      .ueber-stats { grid-template-columns: 1fr 1fr; }
+      .galerie-grid {
+        grid-template-columns: 1fr;
+      }
+      .ueber-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .hero-title {
+        font-size: clamp(2.5rem, 8vw, 5rem);
+      }
+      .hero-subtitle {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+      }
+      .btn-primary, .btn-outline {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.75rem;
+      }
+      .footer-links {
+        gap: 1rem;
+      }
+      .footer-links a {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav id="navbar">
     <a href="#hero" class="nav-logo">D'Rumtreiba Musi</a>
     <ul class="nav-links">
@@ -711,23 +760,18 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="hero">
     <img src="Logo_Drumtreiba-Musi__1_.png" alt="D'Rumtreiba Musi Logo" class="hero-logo" />
     <span class="hero-tagline">Gmiatlich · Griabig · Boarisch</span>
     <h1 class="hero-title">D'Rumtreiba<br>Musi</h1>
     <p class="hero-subtitle">Est. 2022</p>
-    <p class="hero-desc">
-      Echte bayerische Blasmusik mit Herz – ob Volksfest, Hochzeit oder Stadtfest.
-      Wir spielen für euch!
-    </p>
+    <p class="hero-desc">Echte bayerische Blasmusik mit Herz – ob Volksfest, Hochzeit oder Stadtfest. Wir spielen für euch!</p>
     <div class="hero-cta">
       <a href="#kontakt" class="btn-primary">Auftritt anfragen</a>
       <a href="#ueber" class="btn-outline">Mehr erfahren</a>
     </div>
   </section>
 
-  <!-- ÜBER UNS - MIT VIDEO -->
   <section id="ueber">
     <div class="section-inner">
       <div class="ueber-grid">
@@ -735,15 +779,8 @@
           <span class="section-label">Über uns</span>
           <h2 class="section-title">Eine Kapelle aus dem Herzen Bayerns</h2>
           <div class="divider"><span>✦</span></div>
-          <p>
-            D'Rumtreiba Musi wurde 2022 gegründet und steht für echte, bodenständige
-            Blasmusik aus der Region. Mit einem bunten Mix aus Polkas, Märschen,
-            Walzern und modernen Stücken bringen wir Stimmung auf jede Veranstaltung.
-          </p>
-          <p>
-            Egal ob kleines Dorffest oder großes Volksfest – bei uns kommt a jeder
-            auf seine Kosten. Gmiatlich, griabig und durch und durch boarisch.
-          </p>
+          <p>D'Rumtreiba Musi wurde 2022 gegründet und steht für echte, bodenständige Blasmusik aus der Region. Mit einem bunten Mix aus Polkas, Märschen, Walzern und modernen Stücken bringen wir Stimmung auf jede Veranstaltung.</p>
+          <p>Egal ob kleines Dorffest oder großes Volksfest – bei uns kommt a jeder auf seine Kosten. Gmiatlich, griabig und durch und durch boarisch.</p>
           <div class="ueber-stats">
             <div class="stat"><div class="stat-number">2022</div><div class="stat-label">Gegründet</div></div>
             <div class="stat"><div class="stat-number">7er</div><div class="stat-label">Besetzung</div></div>
@@ -761,7 +798,6 @@
     </div>
   </section>
 
-  <!-- GALERIE -->
   <section id="galerie">
     <div class="section-inner">
       <div class="reveal" style="text-align:center;"><span class="section-label">Eindrücke</span><h2 class="section-title">Galerie</h2><div class="divider"><span>✦</span></div></div>
@@ -777,7 +813,6 @@
     </div>
   </section>
 
-  <!-- MUSIK -->
   <section id="musik">
     <div class="section-inner"><div class="reveal" style="text-align:center;"><span class="section-label">Was wir spielen</span><h2 class="section-title">Unser Repertoire</h2><div class="divider"><span>✦</span></div></div>
       <div class="musik-grid">
@@ -788,121 +823,36 @@
     </div>
   </section>
 
-  <!-- AUFTRITTE -->
   <section id="auftritte">
     <div class="section-inner"><div class="reveal"><span class="section-label">Termine</span><h2 class="section-title">Kommende Auftritte</h2><div class="divider"><span>✦</span></div></div>
       <div class="auftritte-list">
-        <div class="auftritt-item reveal"><div class="auftritt-date">19.07.2026<span>Datum</span></div><div class="auftritt-info"><h4>Seefest</h4><p>Semerskirchen</p></div><div class="auftritt-tag">Angekündigt</div></div>
-        <div class="auftritt-item reveal"><div class="auftritt-date">25.07.2026<span>Datum</span></div><div class="auftritt-info"><h4>Gründungsfest</h4><p>Hausen</p></div><div class="auftritt-tag">Angekündigt</div></div>
-        <div class="auftritt-item reveal"><div class="auftritt-date">27.07.2026<span>Datum</span></div><div class="auftritt-info"><h4>Gründungsfest</h4><p>Hausen</p></div><div class="auftritt-tag">Angekündigt</div></div>
-        <div class="auftritt-item reveal"><div class="auftritt-date">05.09.2026<span>Datum</span></div><div class="auftritt-info"><h4>Gillamoos</h4><p>Abensberg</p></div><div class="auftritt-tag">Angekündigt</div></div>
+        <div class="auftritt-item reveal"><div class="auftritt-date">19.07.2026 <span>Datum</span></div><div class="auftritt-info"><h4>Seefest</h4><p>Semerskirchen</p></div><div class="auftritt-tag">Angekündigt</div></div>
+        <div class="auftritt-item reveal"><div class="auftritt-date">25.07.2026 <span>Datum</span></div><div class="auftritt-info"><h4>Gründungsfest</h4><p>Hausen</p></div><div class="auftritt-tag">Angekündigt</div></div>
+        <div class="auftritt-item reveal"><div class="auftritt-date">27.07.2026 <span>Datum</span></div><div class="auftritt-info"><h4>Gründungsfest</h4><p>Hausen</p></div><div class="auftritt-tag">Angekündigt</div></div>
+        <div class="auftritt-item reveal"><div class="auftritt-date">05.09.2026 <span>Datum</span></div><div class="auftritt-info"><h4>Gillamoos</h4><p>Abensberg</p></div><div class="auftritt-tag">Angekündigt</div></div>
       </div>
       <p class="auftritte-note reveal">Aktuelle Termine und Neuigkeiten - schaut's doch gern vorbei.</p>
     </div>
   </section>
 
-  <!-- KONTAKT -->
   <section id="kontakt">
     <div class="section-inner"><div class="kontakt-inner reveal"><span class="section-label">Kontakt</span><h2 class="section-title">Auftritt anfragen</h2><div class="divider"><span>✦</span></div>
       <p>Ihr sucht eine junge Blaskapelle für euer Fest, eure Hochzeit oder euren Vereinsabend? Schreibt uns einfach – wir freuen uns auf eure Anfrage!</p>
       <a href="mailto:info@d-rumtreiba-musi.de" class="kontakt-mail">info@d-rumtreiba-musi.de</a>
-      <div style="margin-top: 3rem;"><a href="mailto:info@d-rumtreiba-musi.de" class="btn-primary">Jetzt schreiben</a></div>
+      <div style="margin-top: 2rem;"><a href="mailto:info@d-rumtreiba-musi.de" class="btn-primary">Jetzt schreiben</a></div>
     </div></div>
   </section>
 
-  <!-- IMPRESSUM (als versteckter Anker) -->
-  <section id="impressum" style="padding: 4rem 2rem; background: #0a0a0a;">
+  <!-- IMPRESSUM -->
+  <section id="impressum" style="padding: 3rem 1.5rem; background: #0a0a0a;">
     <div class="section-inner legal-section">
       <span class="section-label">Rechtliches</span>
       <h2 class="section-title">Impressum</h2>
       <div class="divider"><span>✦</span></div>
       <p><strong>Angaben gemäß § 5 TMG</strong></p>
-      <p>D'Rumtreiba Musi GbR<br>
-      Amselstraße 1<br>
-      93352 Rohr in Niederbayern</p>
-      <p><strong>Vertreten durch:</strong><br>
-      Gesellschafter der GbR</p>
-      <p><strong>Kontakt:</strong><br>
-  
-      E-Mail: <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a></p>
-      <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
-      D'Rumtreiba Musi GbR, Anschrift wie oben</p>
-      <p><strong>EU-Streitschlichtung:</strong><br>
-      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      <p>D'Rumtreiba Musi GbR<br>Amselstraße 1<br>93352 Rohr in Niederbayern</p>
+      <p><strong>Kontakt:</strong><br>E-Mail: <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a></p>
+      <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>D'Rumtreiba Musi GbR, Anschrift wie oben</p>
+      <p><strong>EU-Streitschlichtung:</strong><br>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
       <a href="#" class="back-link" onclick="history.back(); return false;">← Zurück zur Startseite</a>
-    </div>
-  </section>
-
-  <!-- DATENSCHUTZERKLÄRUNG DSGVO -->
-  <section id="datenschutz" style="padding: 4rem 2rem; background: #0d0d0d;">
-    <div class="section-inner legal-section">
-      <span class="section-label">Datenschutz</span>
-      <h2 class="section-title">Datenschutzerklärung</h2>
-      <div class="divider"><span>✦</span></div>
-      
-      <h3>1. Datenschutz auf einen Blick</h3>
-      <p>Wir freuen uns sehr über Ihr Interesse an unserer Website. Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Nachfolgend informieren wir Sie über die Erhebung, Verarbeitung und Nutzung Ihrer Daten.</p>
-      
-      <h3>2. Verantwortliche Stelle</h3>
-      <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
-      D'Rumtreiba Musi GbR<br>
-      Amselstraße 1, 93352 Rohr i. NB<br>
-      E-Mail: <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a></p>
-      
-      <h3>3. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung</h3>
-      <p><strong>a) Beim Besuch der Website</strong><br>
-      Beim Aufrufen unserer Website werden durch den Browser automatisch Informationen an den Server der Website gesendet. Dies sind technisch notwendige Logfile-Informationen (Browsertyp, Betriebssystem, Referrer URL, Uhrzeit, IP-Adresse). Diese Daten werden anonymisiert gespeichert und nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der technischen Bereitstellung der Website).</p>
-      <p><strong>b) Bei Kontaktaufnahme per E-Mail</strong><br>
-      Wenn Sie uns per E-Mail kontaktieren, speichern wir Ihre angegebenen Daten (E-Mail-Adresse, Name, Nachricht) zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. lit. f (berechtigtes Interesse). Nach vollständiger Bearbeitung löschen wir Ihre Daten, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
-      
-      <h3>4. Weitergabe von Daten</h3>
-      <p>Eine Übermittlung Ihrer persönlichen Daten an Dritte zu anderen als den genannten Zwecken findet nicht statt. Eine Ausnahme besteht, wenn eine gesetzliche Verpflichtung besteht (z.B. Strafverfolgungsbehörden).</p>
-      
-      <h3>5. Betroffenenrechte (DSGVO)</h3>
-      <p>Sie haben das Recht:</p>
-      <ul>
-        <li>gemäß Art. 15 DSGVO Auskunft über Ihre gespeicherten Daten zu verlangen,</li>
-        <li>gemäß Art. 16 DSGVO unrichtige Daten berichtigen zu lassen,</li>
-        <li>gemäß Art. 17 DSGVO Löschung zu verlangen, sofern keine Aufbewahrungspflichten entgegenstehen,</li>
-        <li>gemäß Art. 18 DSGVO Einschränkung der Verarbeitung zu verlangen,</li>
-        <li>gemäß Art. 20 DSGVO Datenübertragbarkeit zu verlangen,</li>
-        <li>gemäß Art. 21 DSGVO Widerspruch gegen die Verarbeitung einzulegen,</li>
-        <li>gemäß Art. 77 DSGVO sich bei einer Aufsichtsbehörde zu beschweren.</li>
-      </ul>
-      <p>Kontakt für Ihre Betroffenenrechte: <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a></p>
-      
-      <h3>6. Cookies / Tracking</h3>
-      <p>Wir verwenden auf dieser Website keine Cookies und keine Analyse-Tools von Drittanbietern. Es werden keine personenbezogenen Daten zu Werbe- oder Trackingzwecken verarbeitet.</p>
-      
-      <h3>7. Hosting</h3>
-      <p>Diese Website wird bei GitHub Pages gehostet. Es gelten die Datenschutzbestimmungen von GitHub Inc. (https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement). GitHub verarbeitet technische Logdaten (z.B. IP-Adressen) zum Betrieb der Seiten. Wir haben keinen Einfluss auf diese Verarbeitung, die jedoch für den Betrieb technisch notwendig ist.</p>
-      
-      <h3>8. Aktualität dieser Datenschutzerklärung</h3>
-      <p>Stand: Juni 2026. Wir behalten uns vor, diese Erklärung bei Änderungen der Rechtslage oder der Website anzupassen.</p>
-      
-      <a href="#" class="back-link" onclick="history.back(); return false;">← Zurück zur Startseite</a>
-    </div>
-  </section>
-
-  <!-- FOOTER mit Links zu Impressum/Datenschutz -->
-  <footer>
-    <div class="footer-links">
-      <a href="#impressum">Impressum</a>
-      <a href="#datenschutz">Datenschutzerklärung</a>
-      <a href="#kontakt">Kontakt</a>
-    </div>
-    <p>© 2026 D'Rumtreiba Musi · <a href="mailto:info@d-rumtreiba-musi.de">info@d-rumtreiba-musi.de</a> · Gmiatlich · Griabig · Boarisch</p>
-  </footer>
-
-  <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
-
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
-  </script>
-</body>
-</html>
+    </
